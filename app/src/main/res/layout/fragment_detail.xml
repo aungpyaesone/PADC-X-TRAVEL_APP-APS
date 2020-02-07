@@ -17,7 +17,7 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             app:contentScrim="@android:color/transparent"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap"
             android:layout_height="400dp">
 
            <RelativeLayout

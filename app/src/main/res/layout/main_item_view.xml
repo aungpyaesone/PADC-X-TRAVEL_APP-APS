@@ -95,7 +95,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -111,7 +110,11 @@
                 android:textSize="@dimen/text_regular_2x"
                 android:textStyle="bold"
                 />
-
+            <include
+                android:id="@+id/vpEmptyTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                layout="@layout/view_pod_empty"/>
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
@@ -128,12 +131,6 @@
                 />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-            <include
-                android:id="@+id/vpEmptyTwo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                layout="@layout/view_pod_empty"/>
-
 
 
         </RelativeLayout>

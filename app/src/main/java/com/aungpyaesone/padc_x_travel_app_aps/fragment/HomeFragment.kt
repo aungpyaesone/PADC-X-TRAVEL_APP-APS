@@ -29,7 +29,7 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
 
     private lateinit var mAdatper:CountryListAdapter
     private lateinit var mPopularAdapter: PopularTourListAdapter
-    private lateinit var viewPortEmpty: EmptyViewPod
+
 
     val mTourImpl: TourModel = TourModelImpl
 
@@ -47,17 +47,23 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 
+        val v = inflater.inflate(R.layout.fragment_home, container, false)
+        return v
+    }
     override fun onViewCreated(view: View,savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hideEmptyView()
         setUpRecyclerView()
-        requestData()
-        setUpViewPod()
-        setUpSwipeRefresh()
 
+        setUpViewPod()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUpSwipeRefresh()
+        requestData()
+        hideEmptyView()
     }
 
     private fun setUpSwipeRefresh(){
@@ -83,10 +89,10 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
         swipeRefreshLayout.isRefreshing = true
         mTourImpl.getAllTours(
             onSuccess = {countryList,popularTourList ->
-                if(countryList.isNotEmpty() && popularTourList.isNotEmpty()){
+                if(countryList.isNotEmpty() || popularTourList.isNotEmpty()){
                    mAdatper.setData(countryList.toMutableList())
                    mPopularAdapter.setData(popularTourList.toMutableList())
-                    hideEmptyView()
+
                 }
                 else
                 {
@@ -105,8 +111,9 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
 
     private fun setUpViewPod(){
         viewPortEmpty = vpEmpty as EmptyViewPod
-        viewPortEmpty = vpEmptyTwo as EmptyViewPod
+       // viewPortEmpty = vpEmptyTwo as EmptyViewPod
         viewPortEmpty.setEmptyData(EN_CONNECTION_ERROR,"https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png")
+
     }
 
     private fun showEmptyView(){

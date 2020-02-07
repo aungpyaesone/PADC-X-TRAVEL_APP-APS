@@ -33,8 +33,8 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
     }
 
     class GetAllTour(
-                       val accessToken:String,
-                       val onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
+                      val accessToken:String,
+                      val onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
                       val onFailure: (String) -> Unit): AsyncTask<Void,Void,GetAllTourResponse?>(){
 
         override fun doInBackground(vararg params: Void?): GetAllTourResponse? {
@@ -46,11 +46,11 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
             try{
                 url = URL(BASE_URL + END_POINT)
                 val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
+                connection.requestMethod ="GET"
 
                 connection.readTimeout = 1500
-                connection.doInput = true
-                connection.doOutput = true
+              /*  connection.doInput = true
+                connection.doOutput = true*/
 
                 val param = ArrayList<NameValuePair>()
                 param.add(
@@ -59,13 +59,12 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
                         accessToken
                     )
                 )
-
-                val outputStream = connection.outputStream
-                val writer = BufferedWriter(OutputStreamWriter(outputStream,"UTF-8"))
-                writer.write(getQuery(param))
-                writer.flush()
-                writer.close()
-                outputStream.close()
+             //   val outputStream = connection.outputStream
+             //   val writer = BufferedWriter(OutputStreamWriter(outputStream,"UTF-8"))
+             //   writer.write(getQuery())
+             /*   writer.flush()
+                writer.close()*/
+             //   outputStream.close()
                 connection.connect()
 
                 reader = BufferedReader(
@@ -77,7 +76,7 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
                 }
 
                 val responseString = stringBuilder.toString()
-                return Gson().fromJson(responseString,GetAllTourResponse::class.java)
+                return Gson().fromJson<GetAllTourResponse>(responseString,GetAllTourResponse::class.java)
             }
             catch(e: Exception) {
                 e.printStackTrace()
@@ -98,9 +97,10 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
 
         }
         @Throws(UnsupportedEncodingException::class)
-        private fun getQuery(params:List<NameValuePair>):String{
+        private fun getQuery():String{
+            //params:List<NameValuePair>
             val result = StringBuilder()
-            var first = true
+            /*var first = true
 
             for (pair in params)
             {
@@ -111,7 +111,7 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
                 result.append(URLEncoder.encode(pair.name,"UTF-8"))
                 result.append("=")
                 result.append(URLEncoder.encode(pair.value,"UTF-8"))
-            }
+            }*/
             return result.toString()
         }
 
