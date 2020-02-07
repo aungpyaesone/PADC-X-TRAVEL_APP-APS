@@ -84,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/discounttour"
                         android:textStyle="bold"
+                        android:drawableStart="@drawable/ic_hot_air_balloon"
                         android:textSize="@dimen/text_regular_2x"
                         android:layout_gravity="center"/>
 

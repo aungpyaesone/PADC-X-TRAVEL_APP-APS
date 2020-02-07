@@ -61,7 +61,6 @@ class DetailFragment : BaseFragment() {
                 .centerCrop()
                 .into(imgProfile)
         }
-        Log.d("countVo",countryVO.name)
         title.text = countryVO.name
         tvLocation.text = countryVO.location
         tvRating.text = countryVO.average_rating.toString()

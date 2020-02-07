@@ -14,6 +14,7 @@ import com.aungpyaesone.padc_x_travel_app_aps.data.models.TourModelImpl
 import com.aungpyaesone.padc_x_travel_app_aps.data.vos.CountryVO
 import com.aungpyaesone.padc_x_travel_app_aps.delegation.CountryItemDelegate
 import com.aungpyaesone.padc_x_travel_app_aps.utils.ACCESS_TOKEN
+import com.aungpyaesone.padc_x_travel_app_aps.utils.EN_CONNECTION_ERROR
 import com.aungpyaesone.padc_x_travel_app_aps.view.viewpods.EmptyViewPod
 import kotlinx.android.synthetic.main.main_item_view.*
 
@@ -105,7 +106,7 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
     private fun setUpViewPod(){
         viewPortEmpty = vpEmpty as EmptyViewPod
         viewPortEmpty = vpEmptyTwo as EmptyViewPod
-        viewPortEmpty.setEmptyData("Hello World","https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png")
+        viewPortEmpty.setEmptyData(EN_CONNECTION_ERROR,"https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png")
     }
 
     private fun showEmptyView(){
@@ -132,7 +133,7 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
     }
 
     override fun onTouchCountryItem(name:String) {
-        showSnackbar(name)
+       // showSnackbar(name)
         activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container,DetailFragment.newInstance(name))?.addToBackStack(null)
             ?.commit()
     }
