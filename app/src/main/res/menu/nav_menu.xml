@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_home"
+        android:title=""
+        android:icon="@drawable/ic_home_black_24dp"/>
+    <item android:id="@+id/nav_star"
+        android:title=""
+        android:icon="@drawable/ic_star_24dp"/>
+    <item android:id="@+id/nav_favorite"
+        android:title=""
+        android:icon="@drawable/ic_favorite"/>
+    <item android:id="@+id/nav_money"
+        android:title=""
+        android:icon="@drawable/ic_monetization_24dp"/>
+    <item android:id="@+id/nav_search"
+        android:title=""
+        android:icon="@drawable/ic_search_black_24dp"/>
+</menu>

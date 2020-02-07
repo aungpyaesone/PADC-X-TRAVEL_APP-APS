@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PADC-X-TRAVEL_APP-APS</string>
+    <string name="news">New</string>
+    <string name="thailand">Thailand</string>
+    <string name="_18_tours">18 Tours</string>
+    <string name="_4_5">4.5</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="discounttour">DiscountTour</string>
+    <string name="find_the_best_tour">Find the best tour</string>
+    <string name="country">Country</string>
+    <string name="popular_tours">Popular Tours</string>
+    <string name="_10_nights_for_two_all_inclusive">10 nights for two/all inclusive</string>
+    <string name="_245_50">$ 245.50</string>
+    <string name="free_wi_fi">Free Wi-Fi</string>
+    <string name="sand_beach">Sand Beach</string>
+    <string name="first_coastline">First Coastline</string>
+    <string name="booking">Booking</string>
+    <string name="_8_0_10">8.0/10</string>
+    <string name="based_on_30_reviews">Based on 30 reviews</string>
+    <string name="sea_flower_resort">Sea Flower Resort</string>
+    <string name="b">B</string>
+</resources>
