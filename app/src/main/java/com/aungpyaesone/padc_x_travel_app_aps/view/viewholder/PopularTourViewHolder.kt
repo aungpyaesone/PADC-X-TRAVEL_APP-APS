@@ -14,10 +14,8 @@ class PopularTourViewHolder(itemView: View,delegate: CountryItemDelegate) : Base
             mData?.let {countrydata->
                 delegate.onTouchCountryItem(countrydata.name)
             }
-
         }
     }
-
 
     override fun bindData(data: CountryVO) {
         mData = data

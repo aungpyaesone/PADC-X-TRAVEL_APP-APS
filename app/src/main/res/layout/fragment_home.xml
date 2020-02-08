@@ -6,19 +6,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HomeFragment">
 
-      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-          android:id="@+id/swipeRefreshLayout"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_below="@id/tvPopularTour"
-          >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        app:elevation="0dp"
+        android:elevation="0dp"
+        >
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="parallax"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_black_24dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discounttour"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_hot_air_balloon"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:layout_gravity="center"/>
+
+            </androidx.appcompat.widget.Toolbar>
+       </com.google.android.material.appbar.AppBarLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPopularTour"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/mainRecyler"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:listitem="@layout/main_item_view"/>
-      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+    </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

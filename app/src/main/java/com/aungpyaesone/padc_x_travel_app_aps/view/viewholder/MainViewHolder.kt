@@ -1,5 +1,6 @@
 package com.aungpyaesone.padc_x_travel_app_aps.view.viewholder
 
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,13 +12,16 @@ import com.aungpyaesone.padc_x_travel_app_aps.data.vos.DataVO
 import com.aungpyaesone.padc_x_travel_app_aps.delegation.CountryItemDelegate
 import com.aungpyaesone.padc_x_travel_app_aps.utils.EN_CONNECTION_ERROR
 import com.aungpyaesone.padc_x_travel_app_aps.view.viewpods.EmptyViewPod
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.main_item_view.*
 import kotlinx.android.synthetic.main.main_item_view.view.*
+import kotlinx.android.synthetic.main.vertical_item_view.view.*
 
 class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHolder<DataVO>(itemView) {
 
     val mDelegate = delegate
     private lateinit var  viewPortEmpty: EmptyViewPod
+    private var viewPool = RecyclerView.RecycledViewPool()
 
     private lateinit var mCountryListAdapter:CountryListAdapter
     private lateinit var mPopularTourListAdapter: PopularTourListAdapter
@@ -30,21 +34,23 @@ class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHol
             mPopularTourListAdapter.setData(data.popular_tour.toMutableList())
         }
 
+
+
     }
 
     private fun setUpRecycler(){
         mCountryListAdapter = CountryListAdapter(mDelegate)
         mPopularTourListAdapter = PopularTourListAdapter(mDelegate)
-        val mManagerOne = LinearLayoutManager(itemView.context,LinearLayoutManager.HORIZONTAL,false)
-        val mManagerTwo = LinearLayoutManager(itemView.context,LinearLayoutManager.VERTICAL,false)
+        val mManagerOne = LinearLayoutManager(itemView.horizontalRecycler.context,LinearLayoutManager.HORIZONTAL,false)
+        val mManagerTwo = LinearLayoutManager(itemView.verticalRecyclerView.context,LinearLayoutManager.VERTICAL,false)
 
         itemView.horizontalRecycler.layoutManager = mManagerOne
         itemView.verticalRecyclerView.layoutManager = mManagerTwo
 
         itemView.horizontalRecycler.adapter = mCountryListAdapter
         itemView.verticalRecyclerView.adapter = mPopularTourListAdapter
-/*itemView.horizontalRecycler.setRecycledViewPool(viewPool)
-        itemView.verticalRecyclerView.setRecycledViewPool(viewPool)*/
+        itemView.horizontalRecycler.setRecycledViewPool(viewPool)
+        itemView.verticalRecyclerView.setRecycledViewPool(viewPool)
 
     }
 

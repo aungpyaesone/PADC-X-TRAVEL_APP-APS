@@ -34,6 +34,7 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
 
     val mTourImpl: TourModel = TourModelImpl
     lateinit var mMainAdapter: MainAdapter
+    private lateinit var mPopularTourListAdapter: PopularTourListAdapter
     val mdataVOList:ArrayList<DataVO> = arrayListOf()
 
 
@@ -88,6 +89,7 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
                     mdataVOList.clear()
                     mdataVOList.add(dataVo)
                     mMainAdapter.setData(mdataVOList.toMutableList())
+
                 }
                 else
                 {
