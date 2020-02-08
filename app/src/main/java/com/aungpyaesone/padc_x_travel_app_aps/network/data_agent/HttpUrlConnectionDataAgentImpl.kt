@@ -3,6 +3,7 @@ package com.aungpyaesone.padc_x_travel_app_aps.network.data_agent
 import android.os.AsyncTask
 import android.util.Log
 import com.aungpyaesone.padc_x_travel_app_aps.data.vos.CountryVO
+import com.aungpyaesone.padc_x_travel_app_aps.data.vos.DataVO
 import com.aungpyaesone.padc_x_travel_app_aps.network.response.GetAllTourResponse
 import com.aungpyaesone.padc_x_travel_app_aps.utils.BASE_URL
 import com.aungpyaesone.padc_x_travel_app_aps.utils.END_POINT
@@ -19,22 +20,21 @@ import java.net.URL
 import java.net.URLEncoder
 
 object HttpUrlConnectionDataAgentImpl : TourDataAgent {
-
     override fun getAllTours(
         accessToken: String,
-        onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
+        onSuccess: (dataVO: DataVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
 
         GetAllTour(
-                    accessToken = accessToken,
-                    onSuccess = onSuccess,
-                    onFailure = onFailure).execute()
+            accessToken = accessToken,
+            onSuccess = onSuccess,
+            onFailure = onFailure).execute()
     }
 
     class GetAllTour(
                       val accessToken:String,
-                      val onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
+                      val onSuccess: (dataVO:DataVO) -> Unit,
                       val onFailure: (String) -> Unit): AsyncTask<Void,Void,GetAllTourResponse?>(){
 
         override fun doInBackground(vararg params: Void?): GetAllTourResponse? {
@@ -121,7 +121,7 @@ object HttpUrlConnectionDataAgentImpl : TourDataAgent {
             if( result != null){
                 if(result.isResponseOk()){
                     result.data?.let {data->
-                        onSuccess(data.country.toList(),data.popular_tour.toList())
+                        onSuccess(data)
                     }
                 }
                 else{

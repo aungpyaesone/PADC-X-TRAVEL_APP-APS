@@ -2,6 +2,7 @@ package com.aungpyaesone.padc_x_travel_app_aps.network.data_agent
 
 import android.os.AsyncTask
 import com.aungpyaesone.padc_x_travel_app_aps.data.vos.CountryVO
+import com.aungpyaesone.padc_x_travel_app_aps.data.vos.DataVO
 import com.aungpyaesone.padc_x_travel_app_aps.network.response.GetAllTourResponse
 import com.aungpyaesone.padc_x_travel_app_aps.utils.ACCESS_TOKEN
 import com.aungpyaesone.padc_x_travel_app_aps.utils.BASE_URL
@@ -23,8 +24,8 @@ object OkhttpDataAgentImpl : TourDataAgent {
         .build()
 
     override fun getAllTours(
-        accessToken:String,
-        onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
+        accessToken: String,
+        onSuccess: (dataVO: DataVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
         GetAllTours(
@@ -37,7 +38,7 @@ object OkhttpDataAgentImpl : TourDataAgent {
     class GetAllTours(
         private val accessToken: String,
         private val mOkHttpClient: OkHttpClient,
-        private val onSuccess: (List<CountryVO>, List<CountryVO>) -> Unit,
+        private val onSuccess: (dataVO:DataVO) -> Unit,
         private val onFailure: (String) -> Unit
         ): AsyncTask<Void,Void,GetAllTourResponse>(){
 
@@ -77,7 +78,7 @@ object OkhttpDataAgentImpl : TourDataAgent {
             if(result !=null){
                 if(result.isResponseOk()){
                     result.data?.let {
-                        onSuccess(it.country,it.popular_tour)
+                        onSuccess(it)
                     }
                 }else{
                     onFailure(result.message)

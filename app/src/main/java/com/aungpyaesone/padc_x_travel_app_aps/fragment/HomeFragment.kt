@@ -8,14 +8,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aungpyaesone.padc_x_travel_app_aps.R
 import com.aungpyaesone.padc_x_travel_app_aps.adapter.CountryListAdapter
+import com.aungpyaesone.padc_x_travel_app_aps.adapter.MainAdapter
 import com.aungpyaesone.padc_x_travel_app_aps.adapter.PopularTourListAdapter
 import com.aungpyaesone.padc_x_travel_app_aps.data.models.TourModel
 import com.aungpyaesone.padc_x_travel_app_aps.data.models.TourModelImpl
 import com.aungpyaesone.padc_x_travel_app_aps.data.vos.CountryVO
+import com.aungpyaesone.padc_x_travel_app_aps.data.vos.DataVO
 import com.aungpyaesone.padc_x_travel_app_aps.delegation.CountryItemDelegate
 import com.aungpyaesone.padc_x_travel_app_aps.utils.ACCESS_TOKEN
+import com.aungpyaesone.padc_x_travel_app_aps.utils.CODE_RESPONSE
 import com.aungpyaesone.padc_x_travel_app_aps.utils.EN_CONNECTION_ERROR
 import com.aungpyaesone.padc_x_travel_app_aps.view.viewpods.EmptyViewPod
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.main_item_view.*
 
 
@@ -27,11 +31,10 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var mAdatper:CountryListAdapter
-    private lateinit var mPopularAdapter: PopularTourListAdapter
-
 
     val mTourImpl: TourModel = TourModelImpl
+    lateinit var mMainAdapter: MainAdapter
+    val mdataVOList:ArrayList<DataVO> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,16 +57,11 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
     override fun onViewCreated(view: View,savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
-
-        setUpViewPod()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
         setUpSwipeRefresh()
         requestData()
-        hideEmptyView()
+      //  setUpViewPod()
+      //  hideEmptyView()
+
     }
 
     private fun setUpSwipeRefresh(){
@@ -72,60 +70,39 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
         }
     }
     private fun setUpRecyclerView(){
-        mAdatper = CountryListAdapter(this)
-        mPopularAdapter = PopularTourListAdapter(this)
+
+        mMainAdapter = MainAdapter(this)
         val linearLayoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
-        val linearLayoutManagerTwo = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+        mainRecyler.layoutManager = linearLayoutManager
+        mainRecyler.adapter = mMainAdapter
 
-
-        horizontalRecycler.layoutManager = linearLayoutManagerTwo
-        verticalRecyclerView.layoutManager = linearLayoutManager
-        horizontalRecycler.adapter = mAdatper
-        verticalRecyclerView.adapter = mPopularAdapter
 
     }
 
     private fun requestData(){
         swipeRefreshLayout.isRefreshing = true
         mTourImpl.getAllTours(
-            onSuccess = {countryList,popularTourList ->
-                if(countryList.isNotEmpty() || popularTourList.isNotEmpty()){
-                   mAdatper.setData(countryList.toMutableList())
-                   mPopularAdapter.setData(popularTourList.toMutableList())
-
+            onSuccess = {dataVo->
+                if(dataVo.country.isNotEmpty())
+                {
+                    mdataVOList.clear()
+                    mdataVOList.add(dataVo)
+                    mMainAdapter.setData(mdataVOList.toMutableList())
                 }
                 else
                 {
-                    showEmptyView()
+                    showSnackbar(EN_CONNECTION_ERROR)
                 }
                 swipeRefreshLayout.isRefreshing = false
             },
             onFailure = {
-               showEmptyView()
-               swipeRefreshLayout.isRefreshing = false
+                val message = it
+                showSnackbar(message)
             }
         )
 
-
     }
 
-    private fun setUpViewPod(){
-        viewPortEmpty = vpEmpty as EmptyViewPod
-       // viewPortEmpty = vpEmptyTwo as EmptyViewPod
-        viewPortEmpty.setEmptyData(EN_CONNECTION_ERROR,"https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png")
-
-    }
-
-    private fun showEmptyView(){
-        vpEmpty.visibility = View.VISIBLE
-        vpEmptyTwo.visibility = View.VISIBLE
-
-    }
-
-    private fun hideEmptyView(){
-        vpEmpty.visibility = View.GONE
-        vpEmptyTwo.visibility = View.GONE
-    }
 
 
     companion object {

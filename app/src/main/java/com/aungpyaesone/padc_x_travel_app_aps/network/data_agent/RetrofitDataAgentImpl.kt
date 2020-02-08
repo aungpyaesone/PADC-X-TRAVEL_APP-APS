@@ -36,11 +36,10 @@ object RetrofitDataAgentImpl : TourDataAgent {
     }
 
     override fun getAllTours(
-        accessToken:String,
-        onSuccess: (List<CountryVO>,List<CountryVO>) -> Unit,
-
-                             onFailure: (String) -> Unit) {
-
+        accessToken: String,
+        onSuccess: (dataVO: DataVO) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
         val getAllTour = mTourApi?.getAllTours()
         getAllTour?.enqueue(object : Callback<GetAllTourResponse> {
             override fun onFailure(call: Call<GetAllTourResponse>, t: Throwable) {
@@ -56,7 +55,7 @@ object RetrofitDataAgentImpl : TourDataAgent {
                 {
                     if(getAllTourResponse.isResponseOk()){
                         getAllTourResponse.data?.let {
-                            onSuccess(it.country,it.popular_tour)
+                            onSuccess(it)
                         }
                     }
                     else
@@ -69,4 +68,4 @@ object RetrofitDataAgentImpl : TourDataAgent {
             }
         })
     }
-}
+    }
