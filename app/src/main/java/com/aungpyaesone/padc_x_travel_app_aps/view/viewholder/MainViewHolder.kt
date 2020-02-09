@@ -26,6 +26,7 @@ class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHol
     private lateinit var mCountryListAdapter:CountryListAdapter
     private lateinit var mPopularTourListAdapter: PopularTourListAdapter
     override fun bindData(data: DataVO) {
+        setUpViewPod()
         hideEmptyView()
         mData = data
         setUpRecycler()
@@ -33,9 +34,9 @@ class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHol
             mCountryListAdapter.setData(data.country.toMutableList())
             mPopularTourListAdapter.setData(data.popular_tour.toMutableList())
         }
-
-
-
+        else{
+            showEmptyView()
+        }
     }
 
     private fun setUpRecycler(){
@@ -49,8 +50,8 @@ class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHol
 
         itemView.horizontalRecycler.adapter = mCountryListAdapter
         itemView.verticalRecyclerView.adapter = mPopularTourListAdapter
-        itemView.horizontalRecycler.setRecycledViewPool(viewPool)
-        itemView.verticalRecyclerView.setRecycledViewPool(viewPool)
+       // itemView.horizontalRecycler.setRecycledViewPool(viewPool)
+      //  itemView.verticalRecyclerView.setRecycledViewPool(viewPool)
 
     }
 
@@ -64,12 +65,17 @@ class MainViewHolder(itemView: View,delegate: CountryItemDelegate) : BaseViewHol
     private fun showEmptyView(){
         itemView.vpEmpty.visibility = View.VISIBLE
      //   itemView.vpEmptyTwo.visibility = View.VISIBLE
+        itemView.verticalRecyclerView.visibility = View.GONE
+        itemView.horizontalRecycler.visibility = View.GONE
+
 
     }
 
     private fun hideEmptyView(){
         itemView.vpEmpty.visibility = View.GONE
       //  itemView.vpEmptyTwo.visibility = View.GONE
+        itemView.horizontalRecycler.visibility = View.VISIBLE
+        itemView.verticalRecyclerView.visibility = View.VISIBLE
     }
 
 }

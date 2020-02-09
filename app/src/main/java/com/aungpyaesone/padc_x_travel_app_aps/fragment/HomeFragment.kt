@@ -1,24 +1,19 @@
 package com.aungpyaesone.padc_x_travel_app_aps.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aungpyaesone.padc_x_travel_app_aps.R
-import com.aungpyaesone.padc_x_travel_app_aps.adapter.CountryListAdapter
 import com.aungpyaesone.padc_x_travel_app_aps.adapter.MainAdapter
 import com.aungpyaesone.padc_x_travel_app_aps.adapter.PopularTourListAdapter
 import com.aungpyaesone.padc_x_travel_app_aps.data.models.TourModel
 import com.aungpyaesone.padc_x_travel_app_aps.data.models.TourModelImpl
-import com.aungpyaesone.padc_x_travel_app_aps.data.vos.CountryVO
+
 import com.aungpyaesone.padc_x_travel_app_aps.data.vos.DataVO
 import com.aungpyaesone.padc_x_travel_app_aps.delegation.CountryItemDelegate
-import com.aungpyaesone.padc_x_travel_app_aps.utils.ACCESS_TOKEN
-import com.aungpyaesone.padc_x_travel_app_aps.utils.CODE_RESPONSE
 import com.aungpyaesone.padc_x_travel_app_aps.utils.EN_CONNECTION_ERROR
-import com.aungpyaesone.padc_x_travel_app_aps.view.viewpods.EmptyViewPod
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.main_item_view.*
 
@@ -104,8 +99,6 @@ class HomeFragment : BaseFragment(),CountryItemDelegate{
         )
 
     }
-
-
 
     companion object {
         @JvmStatic
